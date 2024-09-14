@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>untitle</title>
+</head>
+<body>
+
+    <div id="novel-content"></div>
+    <button id="prev-page">前のページ</button>
+    <button id="next-page">次のページ</button>
+    <li><a href="./Text/novel.txt">Test</a></li>
+
+    <script>
+        let currentPage = 0;
+        let pages = [];
+
+        // テキストファイルを読み込む
+        fetch('./Text/novel.txt')
+            .then(response => response.text())
+            .then(data => {
+                // 「＝＝＝」でページ分割
+                pages = data.split('＝＝＝');
+                showPage(currentPage);
+            });
+
+        // ページを表示する関数
+        function showPage(page) {
+            document.getElementById('novel-content').innerHTML = pages[page].trim();
+        }
+
+        // 次のページ
+        document.getElementById('next-page').addEventListener('click', function() {
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                showPage(currentPage);
+            }
+        });
+
+        // 前のページ
+        document.getElementById('prev-page').addEventListener('click', function() {
+            if (currentPage > 0) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        });
+    </script>
+
+</body>
+</html>
