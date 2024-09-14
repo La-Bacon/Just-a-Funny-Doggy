@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>untitle</title>
+    <style>
+        #novel-content {
+            white-space: pre-wrap; /* 改行を維持 */
+            font-family: monospace; /* ターミナル風のフォント */
+        }
+    </style>
 </head>
 <body>
 
@@ -15,6 +21,7 @@
     <script>
         let currentPage = 0;
         let pages = [];
+        let displayInterval;
 
         // テキストファイルを読み込む
         fetch('./Text/novel.txt')
@@ -27,7 +34,19 @@
 
         // ページを表示する関数
         function showPage(page) {
-            document.getElementById('novel-content').innerHTML = pages[page].trim();
+            clearInterval(displayInterval);
+            let content = pages[page].trim();
+            let index = 0;
+            document.getElementById('novel-content').innerHTML = ''; // 内容をクリア
+
+            displayInterval = setInterval(() => {
+                if (index < content.length) {
+                    document.getElementById('novel-content').innerHTML += content[index];
+                    index++;
+                } else {
+                    clearInterval(displayInterval);
+                }
+            }, 50); // 50ミリ秒ごとに1文字を表示
         }
 
         // 次のページ
