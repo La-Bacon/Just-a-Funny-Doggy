@@ -1,68 +1,41 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>untitle</title>
-    <style>
-        #novel-content {
-            white-space: pre-wrap; /* 改行を維持 */
-            font-family: monospace; /* ターミナル風のフォント */
-        }
-        #page-number {
-            margin: 0 10px;
-        }
-    </style>
 </head>
+
 <body>
+
     <div id="novel-content"></div>
+    <p>現在のページ: <span id="current-page-number">1</span></p>
     <button id="prev-page">前のページ</button>
-    <span id="page-number"></span>
     <button id="next-page">次のページ</button>
+    <li><a href="./Text/novel.txt">Test</a></li>
 
     <script>
         let currentPage = 0;
         let pages = [];
-        let pageNumbers = [];
 
         // テキストファイルを読み込む
         fetch('./Text/novel.txt')
             .then(response => response.text())
             .then(data => {
-                // 「＝ページ番号＝」でページを分割
-                const regex = /=\d+=/g;
-                let matches = data.match(regex); // ページ番号部分を取得
-                let splitData = data.split(regex); // テキスト部分を取得
-
-                console.log("ページ番号: ", matches); // ページ番号を確認
-                console.log("ページ内容: ", splitData); // ページ内容を確認
-
-                if (matches && splitData.length > 0) {
-                    // ページ内容と番号をそれぞれ格納
-                    splitData.forEach((content, index) => {
-                        let pageNumber = matches[index] ? matches[index].replace(/=/g, '') : (index + 1); // ページ番号が無い場合、デフォルト番号を設定
-                        pages.push(content.trim());
-                        pageNumbers.push(pageNumber);
-                    });
-
-                    // 最初のページを表示
-                    showPage(currentPage);
-                } else {
-                    console.error("ページデータまたはページ番号の抽出に問題があります。");
-                }
+                // 「＝＝＝」でページ分割
+                pages = data.split('＝＝＝');
+                showPage(currentPage);
             });
 
         // ページを表示する関数
         function showPage(page) {
-            // テキスト内容を表示
-            document.getElementById('novel-content').innerHTML = pages[page] || '内容がありません。';
-
-            // ページ番号を表示
-            document.getElementById('page-number').textContent = `＝${pageNumbers[page]}＝` || '＝?＝';
+            document.getElementById('novel-content').innerHTML = pages[page].trim();
+            document.getElementById('current-page-number').textContent = page + 1; // ページ番号を更新
         }
 
         // 次のページ
-        document.getElementById('next-page').addEventListener('click', function() {
+        document.getElementById('next-page').addEventListener('click', function () {
             if (currentPage < pages.length - 1) {
                 currentPage++;
                 showPage(currentPage);
@@ -70,7 +43,7 @@
         });
 
         // 前のページ
-        document.getElementById('prev-page').addEventListener('click', function() {
+        document.getElementById('prev-page').addEventListener('click', function () {
             if (currentPage > 0) {
                 currentPage--;
                 showPage(currentPage);
@@ -79,4 +52,5 @@
     </script>
 
 </body>
+
 </html>
