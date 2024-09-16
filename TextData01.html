@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archives-Data01</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        /* 小説本文 */
+        #novel-content {
+            background-color: #95978c;
+            border: 1px solid #121e0f;
+            padding: 10px;
+            margin: 10px;
+            white-space: pre-wrap;
+            margin-bottom: 100px;
+        }
+
+        /* ページ番号 */
+        #current-page-number {
+            font-weight: bold;
+            color: #121e0f;
+        }
+
+        /* 画面下部コントロールボタン */
+        #controls {
+            font-family: 'Courier New', Courier, monospace;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #95978c;
+            border-top: 1px solid #121e0f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        #controls button,
+        #controls a {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Data 01: Noisy Nights, Pissy Night</h1>
+    <div id="novel-content"></div>
+    <div id="controls">
+        <button onclick="window.location.href='./index.html'">TOP</button>
+        <button id="prev-page">&lt;&lt; PREV</button>
+        <span id="current-page-number">1</span>
+        <button id="next-page">NEXT &gt;&gt;</button>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        let pages = [];
+
+        // テキストファイルをここで指定
+        fetch('./Text/TextData01.txt')
+            .then(response => response.text())
+            .then(data => {
+                // 「＝＝＝」でページ分割
+                pages = data.split('＝＝＝');
+                showPage(currentPage);
+            });
+
+        // ページ番号を表示する関数
+        function showPage(page) {
+            document.getElementById('novel-content').innerHTML = pages[page].trim();
+            document.getElementById('current-page-number').textContent = page + 1;
+        }
+
+        // 次のページ
+        document.getElementById('next-page').addEventListener('click', function () {
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                showPage(currentPage);
+            }
+        });
+
+        // 前のページ
+        document.getElementById('prev-page').addEventListener('click', function () {
+            if (currentPage > 0) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+    body {
+        background-color: #95978c;
+        color: #121e0f;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    button {
+        font-family: 'Courier New', Courier, monospace;
+        background-color: #95978c;
+        border: 1px solid #121e0f;
+        color: #121e0f;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 5px 10px;
+        margin: 10px;
+        border-radius: 3px;
+    }
+
+    button:hover {
+        color: #95978c;
+        background-color: #121e0f;
+        text-decoration: none;
+    }
+
+    a {
+        color: #121e0f;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    h1,
+    h2 {
+        padding: 10px;
+        font-family: monospace;
+    }

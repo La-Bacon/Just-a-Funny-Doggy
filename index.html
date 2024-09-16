@@ -1,11 +1,180 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="jp">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>untitle</title>
+    <title>Just a Funny Doggy</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        h1 {
+            border-bottom: 2px solid #121e0f;
+            padding-bottom: 10px;
+        }
+
+        p {
+            padding: 10px;
+        }
+
+        pre {
+            margin: 0;
+            padding: 10px;
+            line-height: 1.5;
+        }
+
+        .text-data {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            background-color: #95978c;
+            padding: 10px;
+        }
+
+        .text-data a {
+            font-size: 20px;
+            font-weight: bold;
+            color: #121e0f;
+            text-decoration: none;
+        }
+
+        .text-data p {
+            padding: 0px;
+            margin: 0;
+            color: #121e0f;
+            font-size: 14px;
+        }
+
+        .text-data a:hover {
+            text-decoration: underline;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #notice {
+            background-color: #95978c;
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #121e0f;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+
+        #notice h2 {
+            font-size: 18px;
+        }
+
+        #notice p {
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .tag {
+            font-weight: bold;
+            font-family: monospace;
+        }
+    </style>
 </head>
+
 <body>
-    <li><a href="./novelPage.html">text</a></li>
+    <h1>Just a Funny Doggy</h1>
+    <pre>
+Click on the title to read. Newest from top.
+<strong>Warning: Please read the notice first.</strong></pre>
+    <button id="showNotice">Show Notice</button>
+    <button id="hideNotice" style="display: none;">Hide Notice</button>
+    <div id="notice"></div>
+
+    <div class="text-data">
+        <a href="./TextData01.html">DATA 01</a>
+        <div class="tag">Warning: Under Age Rating Review</div>
+        <p>毎晩隣部屋がうるさいクリストフの話</p>
+    </div>
+
+    <script>
+        const noticeText = `
+Before Reading the Dream Novel>>
+
+- Content: This is a work of fiction and not related to real people or events. The reader appears as the protagonist, called "Newcomer." If this format is uncomfortable, please do not read.
+
+- Age Restrictions: Some works are R18. If underage, please avoid such content and proceed at your own risk. Enjoy works suited to your age group.
+
+- Fan Fiction: This is fan fiction and not affiliated with the original author. Respect copyright and avoid excessive sharing.
+
+- No Unauthorized Reproduction: Reproduction or distribution of content from this site is prohibited.
+
+- Other Notices: Content may have uncomfortable elements. Check tags and notices before reading, and do not confuse fiction with reality.
+`;
+
+        const noticeTextJapanese = `
+夢小説をご覧になる前に>>
+
+- 作品の内容について: フィクションであり、実在の人物や出来事とは関係ありません。読者が「新入り」として登場します。不安な方は閲覧をお控えください。
+
+- 年齢制限について: 一部はR18です。未成年の方は閲覧を避け、自己責任でお願いします。年齢に合った作品をお楽しみください。
+
+- 二次創作について: 原作者とは無関係のファンフィクションです。著作権を尊重し、過剰な共有は避けてください。
+
+- 無断転載禁止: 無断での複製・配布は禁止です。
+
+- その他の注意: 不快な要素が含まれる場合があります。タグや注意書きを確認し、現実と混同しないようにしてください。
+`;
+
+        window.onload = () => {
+            const noticeElement = document.getElementById('notice');
+            const showNoticeButton = document.getElementById('showNotice');
+            const hideNoticeButton = document.getElementById('hideNotice');
+            let typeTimeout; // タイムアウトIDを保持する変数
+
+            // 一文字ずつ表示する関数
+            function typeWriter(text, element, speed = 0.01, callback) {
+                let i = 0;
+                element.style.display = "block";
+                function type() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                        typeTimeout = setTimeout(type, speed); // タイムアウトIDを保持
+                    } else if (callback) {
+                        setTimeout(callback, 1000); // テキスト表示後に一時停止してからコールバックを実行
+                    }
+                }
+                type();
+            }
+
+            // ページ読み込み時に説明を非表示
+            noticeElement.style.display = 'none';
+
+            // 「Show Notice」ボタンがクリックされたとき
+            showNoticeButton.addEventListener('click', () => {
+                showNoticeButton.style.display = 'none'; // 「Show Notice」ボタンを非表示
+                hideNoticeButton.style.display = 'block'; // 「Hide Notice」ボタンを表示
+                noticeElement.innerHTML = ''; // 前回のテキストをクリア
+                typeWriter(noticeText, noticeElement, 0.01, () => {
+                    // テキスト表示後に一時停止してから日本語訳を一気に表示
+                    setTimeout(() => {
+                        noticeElement.innerHTML = noticeTextJapanese;
+                    }, 1000); // 一時停止の時間（ミリ秒）
+                });
+            });
+
+            // 「Hide Notice」ボタンがクリックされたとき
+            hideNoticeButton.addEventListener('click', () => {
+                noticeElement.style.display = 'none'; // 説明を非表示
+                hideNoticeButton.style.display = 'none'; // 「Hide Notice」ボタンを非表示
+                showNoticeButton.style.display = 'block'; // 「Show Notice」ボタンを再表示
+                clearTimeout(typeTimeout); // タイムアウトをクリアして一文字ずつ表示する処理を中断
+                noticeElement.innerHTML = ''; // 説明を一気に非表示
+            });
+        };
+
+    </script>
 </body>
+
+</body>
+
 </html>
