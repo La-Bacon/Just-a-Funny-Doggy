@@ -1,46 +1,82 @@
+/* PC向けのフォント設定 */
+body {
+    background-color: #95978c;
+    color: #121e0f;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace, 'MS Gothic', sans-serif;
+}
+
+button {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #95978c;
+    border: 1px solid #121e0f;
+    color: #121e0f;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 10px;
+    border-radius: 3px;
+}
+
+button:hover {
+    color: #95978c;
+    background-color: #121e0f;
+    text-decoration: none;
+}
+
+h1,
+h2 {
+    padding: 10px;
+    font-family: monospace, 'MS Gothic', sans-serif;
+}
+
+a {
+    color: #121e0f;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+pre {
+    padding: 10px;
+}
+
+/* スマホ向けのフォント設定 */
+/* スマホ向けのフォント設定 */
+@media (max-width: 768px) {
+
+    body,
+    h1,
+    h2 {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
     body {
-        background-color: #95978c;
-        color: #121e0f;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: monospace, 'MS Gothic', sans-serif;
+        font-size: 14px;
+        /* 全体的な文字サイズを小さめに調整 */
+    }
+
+    h1 {
+        font-size: 24px;
+        /* h1タグのサイズ調整 */
+    }
+
+    h2 {
+        font-size: 20px;
+        /* h2タグのサイズ調整 */
     }
 
     button {
-        font-family: 'Courier New', Courier, monospace;
-        background-color: #95978c;
-        border: 1px solid #121e0f;
-        color: #121e0f;
-        font-size: 16px;
-        cursor: pointer;
-        padding: 5px 10px;
-        margin: 10px;
-        border-radius: 3px;
+        font-size: 14px;
+        /* ボタンの文字サイズ調整 */
     }
 
-    button:hover {
-        color: #95978c;
-        background-color: #121e0f;
-        text-decoration: none;
-    }
-
+    p,
     a {
-        color: #121e0f;
+        font-size: 14px;
+        /* 段落やリンクの文字サイズ調整 */
     }
-
-    a:hover {
-        text-decoration: underline;
-    }
-
-    h1,
-    h2 {
-        padding: 10px;
-        font-family: monospace, 'MS Gothic', sans-serif;
-    }
-
-    pre {
-        margin: 0;
-        padding: 10px;
-        line-height: 1.5;
-    }
+}
