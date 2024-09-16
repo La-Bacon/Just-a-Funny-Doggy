@@ -31,29 +31,34 @@
             .then(data => {
                 // 「＝ページ番号＝」でページを分割
                 const regex = /=\d+=/g;
-                let splitData = data.split(regex); // テキスト部分を取得
                 let matches = data.match(regex); // ページ番号部分を取得
+                let splitData = data.split(regex); // テキスト部分を取得
 
-                // ページ内容と番号をそれぞれ格納
-                splitData.forEach((content, index) => {
-                    if (matches && matches[index]) {
-                        let pageNumber = matches[index].replace(/=/g, ''); // 数字部分だけ取得
+                console.log("ページ番号: ", matches); // ページ番号を確認
+                console.log("ページ内容: ", splitData); // ページ内容を確認
+
+                if (matches && splitData.length > 0) {
+                    // ページ内容と番号をそれぞれ格納
+                    splitData.forEach((content, index) => {
+                        let pageNumber = matches[index] ? matches[index].replace(/=/g, '') : (index + 1); // ページ番号が無い場合、デフォルト番号を設定
                         pages.push(content.trim());
                         pageNumbers.push(pageNumber);
-                    }
-                });
+                    });
 
-                // 最初のページを表示
-                showPage(currentPage);
+                    // 最初のページを表示
+                    showPage(currentPage);
+                } else {
+                    console.error("ページデータまたはページ番号の抽出に問題があります。");
+                }
             });
 
         // ページを表示する関数
         function showPage(page) {
             // テキスト内容を表示
-            document.getElementById('novel-content').innerHTML = pages[page];
+            document.getElementById('novel-content').innerHTML = pages[page] || '内容がありません。';
 
             // ページ番号を表示
-            document.getElementById('page-number').textContent = `＝${pageNumbers[page]}＝`;
+            document.getElementById('page-number').textContent = `＝${pageNumbers[page]}＝` || '＝?＝';
         }
 
         // 次のページ
