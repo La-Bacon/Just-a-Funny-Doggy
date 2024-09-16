@@ -5,15 +5,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>untitle</title>
+    <style>
+        body {
+            background-color: #95978c;
+            /* 淡い緑の背景色 */
+            color: #121e0f;
+            /* 濃い緑のテキスト色 */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* モノスペースフォントに設定 */
+        }
+
+        #novel-content {
+            background-color: #95978c;
+            /* 淡い緑の背景色 */
+            border: 1px solid #121e0f;
+            /* 濃い緑の枠線 */
+            padding: 10px;
+            margin: 10px;
+            white-space: pre-wrap;
+        }
+
+        button {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #95978c;
+            /* 淡い緑の背景色 */
+            border: 1px solid #121e0f;
+            /* 濃い緑の枠線 */
+            color: #121e0f;
+            /* 濃い緑の文字色 */
+            font-size: 16px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        button:hover {
+            color: #95978c;
+            background-color: #121e0f;
+            /* ホバー時に少し濃い緑 */
+            text-decoration: none;
+        }
+
+        #current-page-number {
+            font-weight: bold;
+            color: #121e0f;
+            /* 濃い緑の文字色 */
+        }
+
+        a {
+            color: #121e0f;
+            /* 濃い緑のリンク色 */
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* ボタンを固定するスタイル */
+        #controls {
+            font-family: 'Courier New', Courier, monospace;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #95978c;
+            /* 淡い緑の背景色 */
+            border-top: 1px solid #121e0f;
+            /* 濃い緑の上部枠線 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        #controls button, #controls a {
+            margin: 0 10px;
+        }
+    </style>
 </head>
 
 <body>
+    <h1>Data: 1</h1>
+    <div id="novel-content">
+それから二人はゆっくりと話し始め、お互いのことを少しずつ打ち明けていった。
+エリカは、自分がこんなにも自然に他人と心を通わせられることに驚いていた。
 
-    <div id="novel-content"></div>
-    <p>現在のページ: <span id="current-page-number">1</span></p>
-    <button id="prev-page">前のページ</button>
-    <button id="next-page">次のページ</button>
-    <li><a href="./Text/novel.txt">Test</a></li>
+夕日が完全に沈み、空が暗くなるまで、二人は話し続けた。
+別れ際、アキラは少し躊躇いながらも尋ねた。
+
+「また明日も、ここで会えますか？」
+
+エリカは小さく頷いた。「ええ、きっと。」
+
+そして二人は、それぞれの道へと歩き出した。
+    </div>
+    <div id="controls">
+        <button onclick="window.location.href='./index.html'">TOP</button>
+        <button id="prev-page">&lt;&lt; PREV</button>
+        <span id="current-page-number">1</span>
+        <button id="next-page">NEXT &gt;&gt;</button>
+    </div>
 
     <script>
         let currentPage = 0;
