@@ -50,7 +50,8 @@ pre {
 
     body,
     h1,
-    h2 {
+    h2,
+    pre {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
@@ -60,12 +61,12 @@ pre {
     }
 
     h1 {
-        font-size: 24px;
+        font-size: 20px;
         /* h1タグのサイズ調整 */
     }
 
     h2 {
-        font-size: 20px;
+        font-size: 18px;
         /* h2タグのサイズ調整 */
     }
 
