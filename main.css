@@ -41,6 +41,7 @@ a:hover {
 }
 
 pre {
+    margin: 0;
     padding: 10px;
 }
 
@@ -61,12 +62,12 @@ pre {
     }
 
     h1 {
-        font-size: 20px;
+        font-size: 24px;
         /* h1タグのサイズ調整 */
     }
 
     h2 {
-        font-size: 18px;
+        font-size: 20px;
         /* h2タグのサイズ調整 */
     }
 
