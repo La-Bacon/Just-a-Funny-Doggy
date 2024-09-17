@@ -183,4 +183,4 @@
 
 「今度は君の番かって思っただけさ。」
 
-<p class="end-text">The End</p>
+The End
