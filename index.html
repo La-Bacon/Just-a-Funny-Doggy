@@ -7,6 +7,9 @@
     <title>Just a Funny Doggy</title>
     <link rel="stylesheet" href="main.css">
     <style>
+        body{
+            margin: 20px;
+        }
         .text-data {
             display: flex;
             flex-direction: column;
@@ -44,21 +47,10 @@
             background-color: #95978c;
             padding: 20px;
             margin: 10px;
-            border: 1px solid #121e0f;
+            border: 1.5px solid #121e0f;
             font-size: 14px;
             white-space: pre-wrap;
-            font-family: monospace, 'MS Gothic', sans-serif;
-        }
-
-        #notice h2 {
-            font-size: 18px;
-            font-family: monospace, 'MS Gothic', sans-serif;
-        }
-
-        #notice p {
-            line-height: 1.5;
-            white-space: pre-wrap;
-            font-family: monospace, 'MS Gothic', sans-serif;
+            font-family: var(--font-main);
         }
 
         .tag {
@@ -72,27 +64,19 @@
             #siteTitle {
                 font-size: 20px;
                 padding-bottom: 5px;
-                font-family: sans-serif;
-                /* スマホ用フォント */
             }
 
             /* テキストデータのリンクと説明文のスマホ対応 */
             .text-data {
                 padding: 8px;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                /* スマホ用フォント */
             }
 
             .text-data a {
                 font-size: 16px;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                /* スマホ用フォント */
             }
 
             .text-data p {
                 font-size: 12px;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                /* スマホ用フォント */
             }
 
             /* ボタンコンテナのスマホ対応 */
@@ -104,37 +88,21 @@
             #notice {
                 font-size: 12px;
                 padding: 15px;
-                margin: 5px;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                /* スマホ用フォント */
-            }
-
-            #notice h2 {
-                font-size: 16px;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                /* スマホ用フォント */
-            }
-
-            #notice p {
-                font-size: 12px;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                /* スマホ用フォント */
+                /* font-family: var(--font-mobile); */
             }
 
             /* タグのスマホ対応 */
             .tag {
                 font-size: 12px;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                /* スマホ用フォント */
+                font-family: var(--font-mobile);
             }
         }
     </style>
 </head>
 
 <body>
-    <h1 id="siteTitle">Just a Funny Doggy</h1>
-    <pre>
-Click on the title to read. Newest from top.
+    <h1 id="siteTitle">Just a Funny Doggy (beta)</h1>
+    <pre>Click on the title to read. Newest from top.
 <strong>Warning: Please read the notice first.</strong></pre>
     <button id="showNotice">Show Notice</button>
     <button id="hideNotice" style="display: none;">Hide Notice</button>
@@ -151,6 +119,10 @@ Click on the title to read. Newest from top.
         <div class="tag">Warning: R15</div>
         <p>毎晩隣部屋がうるさいクリストフの話</p>
     </div>
+
+<pre>↓Here are the image files and others!!
+<a href="./uploader.html">Uploader>></a></pre> 
+<!-- <button onclick="window.location.href='./uploader.html'">Uploader>></button-->
 
     <script>
         const noticeText = `Before Reading the TextDatas>>

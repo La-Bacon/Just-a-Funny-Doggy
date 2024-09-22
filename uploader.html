@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Just a Funny Doggy</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        body {
+            margin: 20px;
+        }
+
+        .image-list {
+            background-color: #95978c;
+            padding: 20px;
+            border: 2px solid #121e0f;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2,
+        pre {
+            margin: 10px;
+            padding: 0;
+            white-space: pre-wrap;
+        }
+
+        .image-item {
+            padding: 10px;
+            border-bottom: 1px solid #121e0f;
+        }
+
+        .image-item:last-child {
+            border-bottom: none;
+        }
+
+        .image-item a {
+            text-decoration: none;
+            color: #121e0f;
+        }
+
+        .image-item a:hover {
+            text-decoration: underline;
+        }
+
+        .image-container img {
+            max-width: 300px;
+            max-height: 300px;
+            width: auto;
+            height: auto;
+        }
+
+        .error-message-box {
+            border: 1.5px solid #121e0f;
+            padding: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .error-message {
+            color: #121e0f;
+            font-weight: bold;
+        }
+
+        .troubleshooting-message {
+            color: #121e0f;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        .password-form {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 画像一覧 -->
+    <div class="image-list">
+        <h2>Files Uploader</h2>
+        <pre>Click to view the file.
+<strong>Warning: Please be aware that some images may contain sensitive content.</strong></pre>
+        <button onclick="window.location.href='./index.html'">TOP</button>
+
+        <div id="image-items">
+            <!-- 画像アイテムがここに挿入される -->
+        </div>
+    </div>
+
+    <div id="image-view" style="display:none;">
+        <!-- 画像の詳細表示 -->
+    </div>
+
+    <script>
+        const imageData = [
+            {
+                title: 'Image 1',
+                description: '平然とセックスするグレゴリー',
+                comment: '倫理観終わってる二人がたまに見たくなる',
+                images: [
+                    // { path: 'Image/image1.jpg', alt: 'Image 1 view 1' },
+                    { path: 'Image/20240921_01.jpg', alt: 'Image 1 view 1' },
+                    { path: 'Image/20240921_02.jpg', alt: 'Image 1 view 2' },
+                    { path: 'Image/20240921_03.jpg', alt: 'Image 1 view 3' }
+                ],
+                dateTime: '2024-09-22 22:35:41',
+                tags: ['Warning: R18<br>'],
+                requiresPassword: true
+            },
+            {
+                title: 'Image 2',
+                description: 'グレモルおせっせ',
+                comment: '昔描いたのが出てきたのであげ',
+                images: [
+                    { path: 'Image/20240709_01.png', alt: 'Image 2 view 1' },
+                    { path: 'Image/20240709_02.png', alt: 'Image 2 view 2' }
+                ],
+                dateTime: '2024-09-23 00:39:29',
+                tags: ['Warning: R18, BL<br>'],
+                requiresPassword: true
+            },
+            {
+                title: 'Image 3',
+                description: 'グレゴリーモブレ無修正',
+                comment: '過去絵。優等生尊厳破壊かわいそう',
+                images: [
+                    { path: 'Image/20240709_03.png', alt: 'Image 3 view 1' },
+                    { path: 'Image/20240709_04.png', alt: 'Image 3 view 2' },
+                    { path: 'Image/20240709_05.png', alt: 'Image 3 view 3' }
+                ],
+                dateTime: '2024-09-23 00:39:56',
+                tags: ['Warning: R18<br>'],
+                requiresPassword: true
+            },
+            {
+                title: 'Image 4',
+                description: 'グレモル',
+                comment: '過去絵。この二人がすきだ……',
+                images: [
+                    { path: 'Image/20231205_01.png', alt: 'Image 4 view 1' },
+                    { path: 'Image/20231205_02.png', alt: 'Image 4 view 2' },
+                    { path: 'Image/20231205_03.png', alt: 'Image 4 view 3' }
+                ],
+                dateTime: '2024-09-23 00:46:52',
+                tags: [''],
+                requiresPassword: false
+            }
+        ];
+    </script>
+
+    <script>
+        const correctPassword = "1999"; // 正しいパスワードを設定
+
+        // 投稿一覧のコンテナ
+        const imageItemsContainer = document.getElementById('image-items');
+
+        // 画像データを一覧に表示
+        imageData.forEach(image => {
+            addImageToList(image.title, image.description, image.comment, image.images, image.dateTime, image.tags, image.requiresPassword);
+        });
+
+        // 画像を投稿一覧に追加する関数
+        function addImageToList(title, description, comment, images, dateTime, tags, requiresPassword) {
+            const imageItem = document.createElement('div');
+            imageItem.className = 'image-item';
+
+            // リストに表示する要素を追加
+            imageItem.innerHTML = `
+                <a href="#" onclick="handleImageClick('${title}', '${description}', '${comment.replace(/'/g, "\\'")}', ${JSON.stringify(images).replace(/"/g, '&quot;')}, '${dateTime}', ${JSON.stringify(tags).replace(/"/g, '&quot;')}, ${requiresPassword}); return false;">
+                    <strong>${title}</strong> - ${description} <br>
+                    <small><strong>${tags.join(', ')}</strong></small>
+                    <small>Posted on: ${dateTime}</small>
+                </a>
+                <div class="password-form" id="password-form-${title}">
+                    <small>ヒント：無修正映画版の米国公開年4桁</small>
+                    <input type="password" placeholder="enter the password" id="password-input-${title}">
+                    <button onclick="checkPassword('${title}', '${description}', '${comment.replace(/'/g, "\\'")}', ${JSON.stringify(images).replace(/"/g, '&quot;')}, '${dateTime}', ${JSON.stringify(tags).replace(/"/g, '&quot;')}); return false;">Submit</button>
+                </div>
+            `;
+            imageItemsContainer.appendChild(imageItem);
+        }
+
+        // 画像クリック時の処理を行う関数
+        function handleImageClick(title, description, comment, images, dateTime, tags, requiresPassword) {
+            // すべてのパスワードフォームを非表示にする
+            const passwordForms = document.querySelectorAll('.password-form');
+            passwordForms.forEach(form => {
+                form.style.display = 'none';
+            });
+
+            if (requiresPassword) {
+                const passwordForm = document.getElementById(`password-form-${title}`);
+                passwordForm.style.display = 'block'; // フォームを表示
+            } else {
+                displayImage(title, description, comment, images, dateTime, tags); // 直接画像を表示
+            }
+        }
+
+        // パスワードをチェックして画像を表示する関数
+        function checkPassword(title, description, comment, images, dateTime, tags) {
+            const passwordInput = document.getElementById(`password-input-${title}`);
+            const userPassword = passwordInput.value;
+            const warningMessage = document.getElementById(`warning-message-${title}`);
+
+            // 警告メッセージを初期化
+            if (warningMessage) {
+                warningMessage.remove();
+            }
+
+            if (userPassword === correctPassword) {
+                displayImage(title, description, comment, images, dateTime, tags);
+                passwordInput.value = ''; // 入力フィールドをクリア
+            } else {
+                // 警告メッセージを追加
+                const passwordForm = document.getElementById(`password-form-${title}`);
+                const warning = document.createElement('div');
+                warning.id = `warning-message-${title}`;
+                warning.style.color = '#1e0f0f'; // 警告メッセージの色
+                warning.style.fontWeight = 'bold'
+                warning.style.fontSize = '10px'
+                warning.innerText = "Warning: Password does not match. Please try again.";
+                passwordForm.prepend(warning);
+            }
+        }
+
+        // 画像を表示する関数
+        function displayImage(title, description, comment, images, dateTime, tags) {
+            const imageView = document.getElementById('image-view');
+            imageView.innerHTML = `
+                <h1>${title}</h1>
+                <div class="image-container" style="text-align: left; margin-top: 20px;">
+                    ${images.map(image => `<img src="${image.path}" alt="${image.alt}" onerror="this.style.display='none'; showErrorMessage();">`).join('')}
+                </div>
+                <div class="details" style="margin-top: 10px; text-align: left;">
+                    <p>${description}</p>
+                    <p>${comment}</p>
+                    <p><small>Posted on: ${dateTime}</small></p>
+                    <button onclick="goBack()">Back</button>
+                </div>
+            `;
+            imageItemsContainer.style.display = 'none'; // 画像一覧を隠す
+            imageView.style.display = 'block'; // 画像表示を表示
+        }
+
+        // エラーメッセージを表示する関数
+        function showErrorMessage() {
+            const errorMessageBox = document.createElement('div');
+            errorMessageBox.className = 'error-message-box';
+
+            errorMessageBox.innerHTML = `
+                <div class="error-message">Error: Image could not be retrieved.</div>
+                <div class="troubleshooting-message">Tips>> The image may have been deleted or the link is broken. Please contact the administrator.</div>
+            `;
+
+            document.querySelector('.image-container').appendChild(errorMessageBox);
+        }
+
+        // 戻るボタンの処理
+        function goBack() {
+            location.reload(); // ページをリロードして画像一覧を再表示
+        }
+    </script>
+
+</body>
+
+</html>
